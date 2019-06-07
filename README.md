@@ -1,6 +1,8 @@
-# Lookup HTTP Status codes from given link to a sitemap.xml
+# Quick lookup for HTTP Status codes
 
-This basic script scrapes all links from a sitemap URL and just prints out the given status. We use it to detect 302 redirects and 404 status codes for websites.
+Main goal: Lookup HTTP Status codes from given link to a sitemap.xml!
+
+This basic script scrapes all links from a sitemap URL and just prints out the given status. We use this script to detect 302 redirects and 404 status codes for websites.
 
 ## Installation
 
@@ -19,4 +21,4 @@ Replace `https://www.your-domain.com/sitemap.xml` with your link.
 
 ## Does it work with subsets of sitemaps?
 
-The answer is YES!
+The answer is YES! (But only one level...)
