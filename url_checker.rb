@@ -7,19 +7,18 @@ sitemap_url = ARGV[0]
 def check_url(url)
   begin
     open(URI.encode(url)) do |f|
-      puts f.base_uri  #=> http://www.example.org
-      puts f.status    #=> ["200", "OK"]
+      puts f.base_uri 
+      puts "Status: #{f.status.join(' ')}"    #=> ["200", "OK"]
     end
   rescue OpenURI::HTTPError => error
     response = error.io
-    puts "Error for URL " + url
-    puts response.status
-    puts response.string
+    puts "\e[31mError for URL #{url}\e[0m"
+    puts "Status: #{response.status.join(' ')}"
   end 
 end
 
 def check_sitemap(url)
-  puts "Parsing sitemap " + url
+  puts "Parsing sitemap #{url}"
   sitemap = SitemapParser.new url
   sitemap_data = sitemap.to_a
   (0..sitemap_data.length-1).each do |j|
@@ -27,9 +26,10 @@ def check_sitemap(url)
   end
 end
 
-if not sitemap_url.nil?
-  puts 'Running...' #+ sitemap_url
-  #mainSitemap = SitemapParser.new sitemap_url
+if sitemap_url.nil?
+  puts "\e[31mNo URL given. Make sure to use the URL of your sitemap.\e[0m"
+else
+  puts "Running #{sitemap_url}"
   sitemap = Nokogiri::HTML(open(sitemap_url))
   
   # when it has sub sitemaps
@@ -41,5 +41,15 @@ if not sitemap_url.nil?
   sitemap.xpath("//url/loc").each do |node|
     check_url(node.content)
   end
+  
+  puts "\e[32mFinished!\e[0m"
 end
-puts 'Finished.'
+
+
+# remove this ad ;)
+puts ""
+puts "\e[36m🧙 Write us a message if you need any help with your digital services:"
+puts ""
+puts " https://www.zauberware.com/"
+puts " hello@zauberware.com\e[0m"
+puts ""
